@@ -1,0 +1,25 @@
+name: "Compute Build Artifact Hash"
+author: "Fastly"
+description: "Compiles and packages a Compute project using the Fastly CLI sends files hash to standard out."
+
+branding:
+  icon: "layers"
+  color: "red"
+
+runs:
+  using: "node20"
+  main: "index.js"
+
+inputs:
+  project_directory:
+    description: "Directory of the project to build, relative to the repository root."
+    required: false
+    default: "./"
+  verbose:
+    description: "Set to true to enable verbose logging"
+    required: false
+    default: "false"
+  skipBuild:
+    description: "Set to true to skip build"
+    required: false
+    default: "false"
