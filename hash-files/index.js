@@ -1,9 +1,10 @@
 const core = require("@actions/core");
 const exec = require("@actions/exec");
-const glob = require("@actions/glob");
 const path = require("path");
+const fs = require("fs");
 
 const checkBin = require("../util/bin");
+const projectDirectory = core.getInput("project_directory");
 
 const verbose = core.getBooleanInput("verbose");
 const skipBuild = core.getBooleanInput("skipBuild");
@@ -18,9 +19,12 @@ checkBin("fastly", "version")
       cwd: core.getInput("project_directory"),
     });
 
-    console.log(result);
+    fs.writeFileSync(
+      path.join(projectDirectory, "pkg", "hash.txt"),
+      result.stdout
+    );
 
-    return exec.exec(`echo "${result.stdout}" > pkg/hash.txt`, [], {});
+    return result;
   })
   .catch((err) => {
     core.setFailed(err.message);
