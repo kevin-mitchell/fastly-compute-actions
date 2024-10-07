@@ -8,12 +8,7 @@ const skipBuild = core.getBooleanInput("skipBuild");
 
 checkBin("fastly", "version")
   .then(() => {
-    let params = [
-      "compute",
-      "hash-files",
-      "> pkg/hash.txt",
-      "--non-interactive",
-    ];
+    let params = ["compute", "hash-files", "--non-interactive"];
     if (verbose) params.push("--verbose");
     if (skipBuild) params.push("--skip-build");
 
