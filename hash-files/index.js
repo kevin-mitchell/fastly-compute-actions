@@ -20,7 +20,7 @@ checkBin("fastly", "version")
 
     console.log(result);
 
-    return exec.exec("echo", [result.stdout, "> pkg/hash.txt"], {});
+    return exec.exec(`echo "${result.stdout}" > pkg/hash.txt`, [], {});
   })
   .catch((err) => {
     core.setFailed(err.message);
